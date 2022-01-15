@@ -17,9 +17,9 @@
 
 ## Example Usage
 
-[Link to example workflow file](https://github.com/Pwd9000-ML/azure-vm-password-rotate/blob/master/exampleWorkflows/rotate-vm-passwords.yml)
+Here is a link to an example [workflow file](https://github.com/Pwd9000-ML/azure-vm-password-rotate/blob/master/exampleWorkflows/rotate-vm-passwords.yml)
 
-## Rotate VM Passwords every monday at 09:00 UTC
+## Example - Rotate VM Passwords every monday at 09:00 UTC
 
 ```
 name: Update Azure VM passwords
@@ -50,14 +50,24 @@ jobs:
         key-vault-name: ${{ env.KEY_VAULT_NAME }}
 ```
 
-**Notes:**
+## Notes
 
 - As per the example above, you also need a GitHub Secret `AZURE_CREDENTIALS` to log into Azure using Action: `Azure/login@v1`
 - The credential used must also have access to the key vault.
-- You can use the [AzurePreReqs](https://github.com/Pwd9000-ML/azure-vm-password-rotate/tree/master/azurePreReqs) script to create a key vault, generate a GitHub Secret to use as `AZURE_CREDENTIALS` and sets relevant access on the key vault.
-- Key Vault must be pre-populated with `Secret Keys`, where each `key` represents a server name e.g:
+- You can use the [AzurePreReqs](https://github.com/Pwd9000-ML/azure-vm-password-rotate/tree/master/azurePreReqs) script to create a key vault, generate a GitHub Secret to use as `AZURE_CREDENTIALS` and sets relevant RBAC access on the key vault `Key Vault Officer`, as well as `Virtual Machine Contributor` over virtual machines in the Azure subscription.
+- Key Vault must be pre-populated with `Secret Keys`, where each `key` represents a server name:
 
 ![image.png](https://raw.githubusercontent.com/Pwd9000-ML/azure-vm-password-rotate/master/assets/kvsecrets.png)
+
+- Passwords will only be rotated for `secrets/names` of servers populated in the key vault as `secret` keys. Servers will be skipped if they are not running:
+
+![image.png](https://raw.githubusercontent.com/Pwd9000-ML/azure-vm-password-rotate/master/assets/norun.png)
+
+- If a server does not exist or the GitHub Secret `AZURE_CREDENTIALS` does not have access over the Virtual Machine a warning is issued of 'VM NOT found':
+
+![image.png](https://raw.githubusercontent.com/Pwd9000-ML/azure-vm-password-rotate/master/assets/nofind.png)
+
+- DO NOT populate the key vault with servers that act as Domain Controllers.
 
 ## Versions of runner that can be used
 
