@@ -53,13 +53,13 @@ jobs:
 ## Notes
 
 - As per the example above, you also need a GitHub Secret `AZURE_CREDENTIALS` to log into Azure using Action: `Azure/login@v1`
-- The credential used must also have access to the key vault `set` and `get`.
 - You can use the [AzurePreReqs](https://github.com/Pwd9000-ML/azure-vm-password-rotate/tree/master/azurePreReqs) script to create a key vault, generate a GitHub Secret to use as `AZURE_CREDENTIALS` and sets relevant RBAC access on the key vault `Key Vault Officer`, as well as `Virtual Machine Contributor` over virtual machines in the Azure subscription.
 - See this [tutorial](https://dev.to/pwd9000/automate-password-rotation-with-github-and-azure-412a) on setting up the Azure PreReqs.
 - Key Vault must be pre-populated with `Secret Keys`, where each `key` represents a server name:
 
 ![image.png](https://raw.githubusercontent.com/Pwd9000-ML/azure-vm-password-rotate/master/assets/kvsecrets.png)
 
+- The Action will connect to the provided key vault and will loop through each secret key/server name. For each server, generate a unique 15char password, set that password against the VM and save the password value against th relevant secret key.
 - Passwords will only be rotated for `secrets/names` of servers populated in the key vault as `secret` keys. Servers will be skipped if they are not running:
 
 ![image.png](https://raw.githubusercontent.com/Pwd9000-ML/azure-vm-password-rotate/master/assets/norun.png)
