@@ -1,16 +1,13 @@
-name: 'Rotate Azure VMs Passwords'
-description: 'Rotate Azure virtual machines local administrator Passwords'
+name: 'AZURE Virtual Machines Rotate Passwords'
+description: 'Rotate AZURE virtual machines local administrator Passwords, using AZURE key vault'
 inputs:
   key-vault-name:
     description: 'Name of the Azure key vault pre-populated with secret name keys representing server names hosted in Azure'
     required: true
-#outputs:
-#  random-number:
-#    description: "Random number"
-#    value: ${{ steps.random-number-generator.outputs.random-id }}
+# https://actions-cool.github.io/github-action-branding/
 branding:
-  icon: 'sec.svg'
-  color: 'blue'
+  icon: 'rotate-cw'
+  color: 'green'
 runs:
   using: "composite"
   steps:
