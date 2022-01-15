@@ -1,4 +1,4 @@
-name: 'AZURE Virtual Machines Rotate Passwords'
+name: 'Rotate AZURE Virtual Machine Passwords'
 description: 'Rotate AZURE virtual machines local administrator Passwords, using AZURE key vault'
 inputs:
   key-vault-name:
