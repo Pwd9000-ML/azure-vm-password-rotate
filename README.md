@@ -10,7 +10,7 @@
 
 ```
 - name: Rotate VMs administrator passwords
-    uses: Pwd9000-ML/azure-vm-password-rotate@v1-beta
+    uses: Pwd9000-ML/azure-vm-password-rotate@v1.0.1
     with:
     key-vault-name: ${{ env.KEY_VAULT_NAME }}
 ```
@@ -45,7 +45,7 @@ jobs:
         enable-AzPSSession: true
 
     - name: Rotate VMs administrator passwords
-      uses: Pwd9000-ML/azure-vm-password-rotate@v1
+      uses: Pwd9000-ML/azure-vm-password-rotate@v1.0.1
       with:
         key-vault-name: ${{ env.KEY_VAULT_NAME }}
 ```
