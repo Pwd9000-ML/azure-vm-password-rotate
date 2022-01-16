@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Action will connect to a provided key vault as input and will loop through each secret key/server name. For each server, generate a unique 15char password, set that password against the VM and save the password value against th relevant secret key.  
+The Action will connect to a provided key vault as input and will loop through each secret key (server name). For each server, generate a unique password, set that password against the VM and save the password value against the relevant secret key.  
 
 - The Azure key vault must be pre-populated with `Secret Keys`, where each `key` represents a server name:
 
@@ -17,12 +17,13 @@ See this [tutorial](https://dev.to/pwd9000/automate-password-rotation-with-githu
 | Inputs | Required | Description | Default |
 |--------|----------|-------------|---------|
 | key-vault-name | True | Name of the Azure key vault pre-populated with secret name keys representing server names hosted in Azure. | N/A |
+| password-length | False | The amount of characters in the password. | 24 |
 
 ## AZURE VMs password rotate action
 
 ```
 - name: Rotate VMs administrator passwords
-    uses: Pwd9000-ML/azure-vm-password-rotate@v1.0.1
+    uses: Pwd9000-ML/azure-vm-password-rotate@v1.0.2
     with:
       key-vault-name: ${{ env.KEY_VAULT_NAME }}
 ```
@@ -57,7 +58,7 @@ jobs:
         enable-AzPSSession: true
 
     - name: Rotate VMs administrator passwords
-      uses: Pwd9000-ML/azure-vm-password-rotate@v1.0.1
+      uses: Pwd9000-ML/azure-vm-password-rotate@v1.0.2
       with:
         key-vault-name: ${{ env.KEY_VAULT_NAME }}
 ```

@@ -4,6 +4,10 @@ inputs:
   key-vault-name:
     description: 'Name of the Azure key vault pre-populated with secret name keys representing server names hosted in Azure'
     required: true
+  password-length: 
+    description:  'The amount of characters in the password. Defaults to 24'
+    required: false
+    default: '24'
 # https://actions-cool.github.io/github-action-branding/
 branding:
   icon: 'rotate-cw'
@@ -23,8 +27,10 @@ runs:
       uses: azure/powershell@v1
       env:
         KEY_VAULT_NAME: ${{ inputs.key-vault-name }}
+        PASSWORD_LENGTH: ${{ inputs.password-length }}
       with:
         inlineScript: | 
+          [int]$length = ${{ env.PASSWORD_LENGTH }}
           $keyVaultName = "${{ env.KEY_VAULT_NAME }}"
           Write-Output "Creating array of all VM names in key vault: [$keyVaultName]."
           $keys = (Get-AzKeyVaultSecret -VaultName $keyVaultName).Name
@@ -48,7 +54,7 @@ runs:
               }
               Else {
                 Write-output "VM is in a [running] state... Generating new secure Password for: [$vmName]"
-                $passwordGen = (("$${{ env.RANDOM_CHAR_SET }}")[0..64] | Get-Random -Count 15) -join ''
+                $passwordGen = (("$${{ env.RANDOM_CHAR_SET }}")[0..64] | Get-Random -Count $length) -join ''
                 $secretPassword = ConvertTo-SecureString -String $passwordGen -AsPlainText -Force
                 Write-Output "Updating key vault: [$keyVaultName] with new random secure password for virtual machine: [$vmName]"
                 $Date = (Get-Date).tostring("dd-MM-yyyy")
