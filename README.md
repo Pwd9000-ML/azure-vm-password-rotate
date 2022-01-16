@@ -2,7 +2,7 @@
 
 ## Overview
 
-This Action will connect to a provided AZURE key vault as input and will loop through each secret key (server name). For each server, generate a unique password (default 24char), set that password against the VM and save the password value against the relevant secret key in the key vault.  
+This Action will connect to a provided AZURE key vault as input and will loop through each secret key (server name). For each server, automatically generate a random unique password (default 24char), set that password against the VM and save the password value against the relevant secret key in the key vault. This will allow you to automate, maintain and manage all your server passwords from a centrally managed key vault in AZURE by only giving relevant access when required by anyone via key vault permissions.
 
 - The Azure key vault must be pre-populated with `Secret Keys`, where each `key` represents a server name:
 
