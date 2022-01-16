@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Action will connect to a provided key vault as input and will loop through each secret key/server name. For each server, generate a unique 15char password, set that password against the VM and save the password value against th relevant secret key.  
+This Action will connect to a provided AZURE key vault as input and will loop through each secret key (server name). For each server, automatically generate a random unique password (default 24char), set that password against the VM and save the password value against the relevant secret key in the key vault. This will allow you to automate, maintain and manage all your server passwords from a centrally managed key vault in AZURE by only giving relevant access when required by anyone via key vault permissions.
 
 - The Azure key vault must be pre-populated with `Secret Keys`, where each `key` represents a server name:
 
@@ -17,12 +17,13 @@ See this [tutorial](https://dev.to/pwd9000/automate-password-rotation-with-githu
 | Inputs | Required | Description | Default |
 |--------|----------|-------------|---------|
 | key-vault-name | True | Name of the Azure key vault pre-populated with secret name keys representing server names hosted in Azure. | N/A |
+| password-length | False | The amount of characters in the password. | 24 |
 
 ## AZURE VMs password rotate action
 
 ```
 - name: Rotate VMs administrator passwords
-    uses: Pwd9000-ML/azure-vm-password-rotate@v1.0.1
+    uses: Pwd9000-ML/azure-vm-password-rotate@v1.0.2
     with:
       key-vault-name: ${{ env.KEY_VAULT_NAME }}
 ```
@@ -38,13 +39,13 @@ name: Update Azure VM passwords
 on: 
   workflow_dispatch:
   schedule:
-    - cron:  '0 9 * * 1' #Runs at 9AM UTC every Monday
+    - cron:  '0 9 * * 1' ##Runs at 9AM UTC every Monday##
 
 jobs:
   publish:
     runs-on: windows-latest
     env:
-      KEY_VAULT_NAME: 'your-key-vault'
+      KEY_VAULT_NAME: 'your-key-vault-name'
 
     steps:
     - name: Check out repository
@@ -57,7 +58,7 @@ jobs:
         enable-AzPSSession: true
 
     - name: Rotate VMs administrator passwords
-      uses: Pwd9000-ML/azure-vm-password-rotate@v1.0.1
+      uses: Pwd9000-ML/azure-vm-password-rotate@v1.0.2
       with:
         key-vault-name: ${{ env.KEY_VAULT_NAME }}
 ```
@@ -68,7 +69,11 @@ jobs:
 
 - You can use the [AzurePreReqs](https://github.com/Pwd9000-ML/azure-vm-password-rotate/tree/master/azurePreReqs) script to create a key vault, generate a GitHub Secret to use as `AZURE_CREDENTIALS` and sets relevant RBAC access on the key vault, `Key Vault Officer`, as well as `Virtual Machine Contributor` over virtual machines in the Azure subscription.
 
-- Passwords will only be rotated for `secrets/names` of servers populated in the key vault as `secret` keys. Servers will be skipped if they are not running:
+- Passwords will only be rotated for `secrets/names` of servers populated in the key vault as `secret` keys. Only virtual machines that are in a `running` state will have their passwords rotated:
+
+![image.png](https://raw.githubusercontent.com/Pwd9000-ML/azure-vm-password-rotate/master/assets/runneroutput.png)
+
+- Servers will be skipped if they are not running:
 
 ![image.png](https://raw.githubusercontent.com/Pwd9000-ML/azure-vm-password-rotate/master/assets/norun.png)
 
