@@ -1,6 +1,6 @@
 # Rotate AZURE virtual machines local administrator Passwords using AZURE key vault
 
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/TJZSFdHlSTs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![image.png](http://img.youtube.com/vi/TJZSFdHlSTs/0.jpg)](http://www.youtube.com/watch?v=TJZSFdHlSTs "Rotate AZURE virtual machines local administrator Passwords using AZURE key vault")
 
 ## Overview
 
