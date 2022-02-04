@@ -15,14 +15,6 @@ branding:
 runs:
   using: "composite"
   steps:
-    #- name: Generate Random Char Set using System.Web Assembly and set environment
-    #  shell: powershell
-    #  run: |
-    #    [system.reflection.assembly]::LoadWithPartialName("System.Web")
-    #    [String]$random = [System.Web.Security.Membership]::GeneratePassword(64, 32)
-    #    echo ::add-mask::$random
-    #    echo "RANDOM_CHAR_SET=$random" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
-
     - name: Rotate VM administrator passwords
       uses: azure/powershell@v1
       env:
