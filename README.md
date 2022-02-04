@@ -99,8 +99,8 @@ As of release v1.1.0; Support for linux and windows runner types now available.
 | Windows Server 2022 | `windows-2022` |
 | Windows Server 2019 | `windows-latest` or `windows-2019` |
 | Windows Server 2016 (deprecated )| `windows-2016` |
-| Ubuntu 20.04 | `ubuntu-latest` or `ubuntu-20-04` |
-| Ubuntu 18.04 | `ubuntu-18-04` |
+| Ubuntu 20.04 | `ubuntu-latest` or `ubuntu-20.04` |
+| Ubuntu 18.04 | `ubuntu-18.04` |
 
 ## License
 
