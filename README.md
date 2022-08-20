@@ -1,5 +1,7 @@
 # Rotate AZURE virtual machines local administrator Passwords using AZURE key vault
 
+[![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/)
+
 ## Video tutorial
 
 [![image.png](http://img.youtube.com/vi/TJZSFdHlSTs/0.jpg)](http://www.youtube.com/watch?v=TJZSFdHlSTs "Rotate AZURE virtual machines local administrator Passwords using AZURE key vault")
