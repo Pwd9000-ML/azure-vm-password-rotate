@@ -39,7 +39,40 @@ Copy and paste the following snippet into your .yml file.
 
 ## Example Usage
 
-Here is a link to an example [workflow file](https://github.com/Pwd9000-ML/azure-vm-password-rotate/blob/master/exampleWorkflows/rotate-vm-passwords.yml)
+Here is a link to an example [workflow file](https://github.com/Pwd9000-ML/azure-vm-password-rotate/blob/master/exampleWorkflows/rotate-vm-passwords.yml) using legacy authentication (Client and Secret).
+
+## Example - Rotate VM Passwords every monday at 09:00 UTC (Legacy)
+
+```yml
+name: Update Azure VM passwords
+on: 
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 9 * * 1' ##Runs at 9AM UTC every Monday##
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    env:
+      KEY_VAULT_NAME: 'your-key-vault-name'
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3.0.2
+
+    - name: Log into Azure using github secret AZURE_CREDENTIALS
+      uses: Azure/login@v1.4.5
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        enable-AzPSSession: true
+
+    - name: Rotate VMs administrator passwords
+      uses: Pwd9000-ML/azure-vm-password-rotate@v1.1.0
+      with:
+        key-vault-name: ${{ env.KEY_VAULT_NAME }}
+```
+
+Here is a link to an example [workflow file (OIDC)](https://github.com/Pwd9000-ML/azure-vm-password-rotate/blob/master/exampleWorkflows/rotate-vm-passwords-OIDC.yml) using modern authentication, Open ID Connect(OIDC).
 
 ## Example - Rotate VM Passwords every monday at 09:00 UTC
 
