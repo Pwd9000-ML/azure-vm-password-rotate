@@ -14,8 +14,6 @@ This Action will connect to a provided AZURE key vault as input and will loop th
 
 ![image.png](https://raw.githubusercontent.com/Pwd9000-ML/azure-vm-password-rotate/master/assets/kvsecrets.png)
 
-You can use the [AzurePreReqs](https://github.com/Pwd9000-ML/azure-vm-password-rotate/tree/master/azurePreReqs) script to create a key vault, generate a GitHub Secret to use as `AZURE_CREDENTIALS` and sets relevant RBAC access on the key vault, `Key Vault Officer`, as well as `Virtual Machine Contributor` over virtual machines in the Azure subscription.  
-
 See this [tutorial](https://dev.to/pwd9000/automate-password-rotation-with-github-and-azure-412a) on setting up the Azure key vault and GitHub Secret Credential (if needed).
 
 ## Inputs
