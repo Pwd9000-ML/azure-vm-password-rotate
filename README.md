@@ -74,7 +74,7 @@ jobs:
 
 Here is a link to an example [workflow file (OIDC)](https://github.com/Pwd9000-ML/azure-vm-password-rotate/blob/master/exampleWorkflows/rotate-vm-passwords-OIDC.yml) using Open ID Connect(OIDC).
 
-## Example - Rotate VM Passwords every monday at 09:00 UTC
+## Example - Rotate VM Passwords every monday at 09:00 UTC (OIDC)
 
 ```yml
 name: Update Azure VM passwords
@@ -83,8 +83,12 @@ on:
   schedule:
     - cron:  '0 9 * * 1' ##Runs at 9AM UTC every Monday##
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
-  publish:
+  rotatePwd:
     runs-on: windows-latest
     env:
       KEY_VAULT_NAME: 'your-key-vault-name'
@@ -93,10 +97,12 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3.0.2
 
-    - name: Log into Azure using github secret AZURE_CREDENTIALS
-      uses: Azure/login@v1.4.5
+    - name: 'Az CLI login using OIDC'
+      uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         enable-AzPSSession: true
 
     - name: Rotate VMs administrator passwords
