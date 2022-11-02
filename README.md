@@ -111,11 +111,9 @@ jobs:
 
 ## Notes
 
-- As per the example above, you also need a GitHub Secret `AZURE_CREDENTIALS` to log into Azure using Action: `Azure/login@v1`
-
 - You can use the [AzurePreReqs (legacy)](https://github.com/Pwd9000-ML/azure-vm-password-rotate/tree/master/azurePreReqs) script to create a key vault, generate a GitHub Secret to use as `AZURE_CREDENTIALS` and sets relevant RBAC access on the key vault, `Key Vault Officer`, as well as `Virtual Machine Contributor` over virtual machines in the Azure subscription.
 
-- You can use the [AzurePreReqs (IODC)](https://github.com/Pwd9000-ML/azure-vm-password-rotate/tree/master/azurePreReqs) script to create a key vault, generate a federated GitHub principal (passwordless) to authenticate to Azure using only teh following GitHub secrets: `secrets.AZURE_CLIENT_ID`, `secrets.AZURE_TENANT_ID`, `secrets.AZURE_SUBSCRIPTION_ID` and sets relevant RBAC access on the key vault, `Key Vault Officer`, as well as `Virtual Machine Contributor` over virtual machines in the Azure subscription.
+- You can use the [AzurePreReqs (IODC)](https://github.com/Pwd9000-ML/azure-vm-password-rotate/tree/master/azurePreReqs) script to create a key vault, generate a federated GitHub principal to authenticate (passwordless) to Azure using only the following GitHub secrets: `secrets.AZURE_CLIENT_ID`, `secrets.AZURE_TENANT_ID`, `secrets.AZURE_SUBSCRIPTION_ID`. The script also sets relevant RBAC access on the key vault, `Key Vault Officer`, as well as `Virtual Machine Contributor` over virtual machines in the Azure subscription.
 
 - Passwords will only be rotated for `secrets/names` of servers populated in the key vault as `secret` keys. Only virtual machines that are in a `running` state will have their passwords rotated:
 
