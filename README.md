@@ -72,7 +72,7 @@ jobs:
         key-vault-name: ${{ env.KEY_VAULT_NAME }}
 ```
 
-Here is a link to an example [workflow file (OIDC)](https://github.com/Pwd9000-ML/azure-vm-password-rotate/blob/master/exampleWorkflows/rotate-vm-passwords-OIDC.yml) using modern authentication, Open ID Connect(OIDC).
+Here is a link to an example [workflow file (OIDC)](https://github.com/Pwd9000-ML/azure-vm-password-rotate/blob/master/exampleWorkflows/rotate-vm-passwords-OIDC.yml) using Open ID Connect(OIDC).
 
 ## Example - Rotate VM Passwords every monday at 09:00 UTC
 
@@ -109,7 +109,9 @@ jobs:
 
 - As per the example above, you also need a GitHub Secret `AZURE_CREDENTIALS` to log into Azure using Action: `Azure/login@v1`
 
-- You can use the [AzurePreReqs](https://github.com/Pwd9000-ML/azure-vm-password-rotate/tree/master/azurePreReqs) script to create a key vault, generate a GitHub Secret to use as `AZURE_CREDENTIALS` and sets relevant RBAC access on the key vault, `Key Vault Officer`, as well as `Virtual Machine Contributor` over virtual machines in the Azure subscription.
+- You can use the [AzurePreReqs (legacy)](https://github.com/Pwd9000-ML/azure-vm-password-rotate/tree/master/azurePreReqs) script to create a key vault, generate a GitHub Secret to use as `AZURE_CREDENTIALS` and sets relevant RBAC access on the key vault, `Key Vault Officer`, as well as `Virtual Machine Contributor` over virtual machines in the Azure subscription.
+
+- You can use the [AzurePreReqs (IODC)](https://github.com/Pwd9000-ML/azure-vm-password-rotate/tree/master/azurePreReqs) script to create a key vault, generate a federated GitHub principal (passwordless) to authenticate to Azure using only teh following GitHub secrets: `secrets.AZURE_CLIENT_ID`, `secrets.AZURE_TENANT_ID`, `secrets.AZURE_SUBSCRIPTION_ID` and sets relevant RBAC access on the key vault, `Key Vault Officer`, as well as `Virtual Machine Contributor` over virtual machines in the Azure subscription.
 
 - Passwords will only be rotated for `secrets/names` of servers populated in the key vault as `secret` keys. Only virtual machines that are in a `running` state will have their passwords rotated:
 
