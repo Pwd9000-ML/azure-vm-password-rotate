@@ -56,7 +56,7 @@ jobs:
 
     steps:
     - name: Check out repository
-      uses: actions/checkout@v3.0.2
+      uses: actions/checkout@v3.6.0
 
     - name: Log into Azure using github secret AZURE_CREDENTIALS
       uses: Azure/login@v1.4.5
@@ -93,7 +93,7 @@ jobs:
 
     steps:
     - name: Check out repository
-      uses: actions/checkout@v3.0.2
+      uses: actions/checkout@v3.6.0
 
     - name: 'Az CLI login using OIDC'
       uses: azure/login@v1
